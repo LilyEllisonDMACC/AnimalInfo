@@ -99,6 +99,12 @@ public class AnimalList {
 		this.condition = condition;
 	}
 	
+	@Override
+	public String toString() {
+		return this.name + ", a " + this.species + " has " + this.condition;
+	}
+
+	
 	public String returnAnimalDetails() {
 		return this.name + ", a " + this.species + " has " + this.condition;
 	}
