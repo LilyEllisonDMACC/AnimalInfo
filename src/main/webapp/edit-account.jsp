@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <title>Edit Account</title>
 </head>
 <body>
-	<form action = "editAnimalDetailsServlet" method="post">
+	<form action = "editAnimalDetailsServlet" method="post" onsubmit="return validateInfo(this);">
 		<input type = "hidden" name = "id" value = "${accountToEdit.id}">
 		Account Name: <input type = "text" name = "ownershipName" value = "${accountToEdit.ownershipName}"><br />
 		Owner Name: <input type = "text" name = "ownerName" value = "${accountToEdit.owner.ownerName}"><br />
@@ -24,5 +24,36 @@ pageEncoding="UTF-8"%>
 		<input type = "submit" value = "Edit Account and Add Animals">
 	</form>
 	<a href = "index.html">Go add new animals instead.</a>
+	
+	<script>
+		let errors = [];
+		let re = /^[\w -]+$/;
+		
+		function validateInfo(form) {
+			if(form.ownershipName.value == "") {
+				errors.push("Account Name is empty.");
+			} else if(!re.test(form.name.value)) {
+				errors.push("Account Name contains invalid characters.");
+			}
+			if(form.ownerName.value == "") {
+				errors.push("Owner Name is empty.");
+			} else if(!re.test(form.species.value)) {
+				errors.push("Owner Name contains invalid characters.");
+			}
+						
+			if(errors.length > 0) {
+				var errorMessage = "ERRORS:\n\n";
+				for (let i=0; i<errors.length; i++) {
+					errorMessage+=errors[i] + "\n";
+				}
+				errors = [];
+				alert(errorMessage);
+				return false;
+			}
+			return true;
+		}
+		
+	</script>
+	
 </body>
 </html>
